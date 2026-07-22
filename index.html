@@ -1,56 +1,61 @@
-<!DOCTYPE ULTRA3.0>
-<ULTRA3.0.ENGINE>
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>CR · ENTER Station</title>
 
-    <STATE>ACTIVE</STATE>
-    <MODE>AUTO</MODE>
-    <VERSION>3.0 TRUE FULL</VERSION>
+<style>
+body { background:#000; color:#0f0; font-family:Consolas; padding:20px; }
+h1 { color:#6cf; }
+button {
+    background:#6cf;
+    color:#000;
+    padding:12px 20px;
+    border:none;
+    font-size:18px;
+    cursor:pointer;
+    margin-top:20px;
+}
+button:hover { background:#9df; }
+pre { background:#111; border:1px solid #333; padding:12px; }
+</style>
+</head>
 
-    <CORE>o_meta(x)</CORE>
-    <PIPE>h1 → e3 → o6 → o9 → b12 → w128 → win∞</PIPE>
+<body>
 
-    <AXIS>X Y Z U V W</AXIS>
-    <VECTOR>horizont breite tiefe ultra wert</VECTOR>
+<h1>CR · ENTER Station</h1>
 
-    <CHAIN>
-        h1 + e3 + o6 + o9 + b12 + w128 +
-        nano + atom + raw + operator +
-        rev1.0 + beat∞ + win∞ +
-        xarg + ghosterror + 7sinn
-    </CHAIN>
+<pre>
+CORE        = CR
+VERSION     = 1.0
+STATE       = rdy
+LEVEL       = gruen
+READY       = ENTER
+</pre>
 
-    <FUSION>
-        win∞(rev1.0(beat∞(o9(o6(e3(h1(x)))))))
-    </FUSION>
+<button onclick="CR_ENTER()">ENTER</button>
 
-    <ZERO>
-        zero-core
-        zero-ultra
-        ultra-zero
-    </ZERO>
+<script>
+// --- CR ENTER TRIGGER ---
+function CR_ENTER(){
+    console.log("CR ENTER ausgelöst");
 
-    <HTML.MATRIX>
-        1.html 3.html 6.html 9.html 12.html
-        RAUM³.html 698869.html gitter.html cluster.html
-    </HTML.MATRIX>
+    CR_TO_UP();
+    CR_TO_IN();
+    CR_TO_IX();
+    CR_TO_XI();
+    CR_TO_XROOM();
+    CR_TO_OUT();
+}
 
-    <OCTA3>
-        server web net script js html css dom
-    </OCTA3>
+// --- Trigger-Funktionen ---
+function CR_TO_UP(){ console.log("CR → UP"); }
+function CR_TO_IN(){ console.log("CR → IN"); }
+function CR_TO_IX(){ console.log("CR → IX"); }
+function CR_TO_XI(){ console.log("CR → XI"); }
+function CR_TO_XROOM(){ console.log("CR → X.room"); }
+function CR_TO_OUT(){ console.log("CR → OUT"); }
+</script>
 
-    <HELP>
-        help.me error.me ghost.me
-    </HELP>
-
-    <PCTA3>24X</PCTA3>
-    <RECALL>>=91%</RECALL>
-
-    <META.ROOMS>
-        <FILE>[METAh.room](ca://s?q=Open_METAh_room)</FILE>
-        <FILE>[METAb.room](ca://s?q=Open_METAb_room)</FILE>
-        <FILE>[METAt.room](ca://s?q=Open_METAt_room)</FILE>
-        <FILE>[META360.room](ca://s?q=Open_META360_room)</FILE>
-        <FILE>[META2.html](ca://s?q=Open_META2_html)</FILE>
-        <FILE>[META3.html](ca://s?q=Open_META3_html)</FILE>
-    </META.ROOMS>
-
-</ULTRA3.0.ENGINE>
+</body>
+</html>
