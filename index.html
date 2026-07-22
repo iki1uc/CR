@@ -7,6 +7,7 @@
 <style>
 body { background:#000; color:#0f0; font-family:Consolas; padding:20px; }
 h1 { color:#6cf; }
+pre { background:#111; border:1px solid #333; padding:12px; }
 button {
     background:#6cf;
     color:#000;
@@ -17,7 +18,6 @@ button {
     margin-top:20px;
 }
 button:hover { background:#9df; }
-pre { background:#111; border:1px solid #333; padding:12px; }
 </style>
 </head>
 
@@ -25,7 +25,7 @@ pre { background:#111; border:1px solid #333; padding:12px; }
 
 <h1>CR · ENTER Station</h1>
 
-<pre>
+<pre id="cr_out">
 CORE        = CR
 VERSION     = 1.0
 STATE       = rdy
@@ -39,22 +39,52 @@ READY       = ENTER
 // --- CR ENTER TRIGGER ---
 function CR_ENTER(){
     console.log("CR ENTER ausgelöst");
-
-    CR_TO_UP();
-    CR_TO_IN();
-    CR_TO_IX();
-    CR_TO_XI();
-    CR_TO_XROOM();
-    CR_TO_OUT();
 }
 
-// --- Trigger-Funktionen ---
-function CR_TO_UP(){ console.log("CR → UP"); }
-function CR_TO_IN(){ console.log("CR → IN"); }
-function CR_TO_IX(){ console.log("CR → IX"); }
-function CR_TO_XI(){ console.log("CR → XI"); }
-function CR_TO_XROOM(){ console.log("CR → X.room"); }
-function CR_TO_OUT(){ console.log("CR → OUT"); }
+// --- CR FILE LIST ---
+const CR_FILES = [
+    "HELP.me",
+    "X.room.CORE",
+    "X.room.IN",
+    "X.room.OUT"
+];
+
+// --- CR-SCAN ---
+async function CR_SCAN(){
+    const out = { rot:[], gelb:[], gruen:[] };
+
+    for(const f of CR_FILES){
+        try {
+            const res = await fetch(`./${f}`);
+            if(!res.ok){
+                out.rot.push(f);
+                continue;
+            }
+
+            const txt = await res.text();
+            if(txt.trim().length === 0){
+                out.gelb.push(f);
+            } else {
+                out.gruen.push(f);
+            }
+
+        } catch(e){
+            out.rot.push(f);
+        }
+    }
+
+    return out;
+}
+
+// --- START ---
+(async () => {
+    const scan = await CR_SCAN();
+    const out = document.getElementById("cr_out");
+
+    out.innerHTML += "\nROT   = " + JSON.stringify(scan.rot);
+    out.innerHTML += "\nGELB  = " + JSON.stringify(scan.gelb);
+    out.innerHTML += "\nGRUEN = " + JSON.stringify(scan.gruen);
+})();
 </script>
 
 </body>
